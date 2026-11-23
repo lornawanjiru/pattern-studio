@@ -1,46 +1,53 @@
-import { useState } from 'react';
+import { checkMeasurement, RANGES } from '../utils/checkMeasurement';
 
-function checkMeasurement(text, min, max) {
-  if (text === '') return 'Please enter a value';
-  const num = Number(text);
-  if (Number.isNaN(num)) return 'Please enter a number';
-  if (num < min || num > max) return `Please enter a value between ${min} and ${max} cm`;
-  return '';
-}
-
-function MeasurementForm() {
-  const [bust, setBust] = useState('');
-  const ease = 1.5; // cm, use your class's ease value
-
-  const bustError = checkMeasurement(bust, 50, 200);
-  const quarterBust = Number(bust) / 4 + ease;
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (bustError) return;
-    console.log('Drafting with bust', Number(bust));
-  };
+// One reusable field: label + input + error message
+function MeasurementField({ id, label, value, setValue, range }) {
+  const [min, max] = range;
+  const error = checkMeasurement(value, min, max);
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="bust">Bust (cm)</label>
-        <input
-          id="bust"
-          type="number"
-          min="50"
-          max="200"
-          step="0.5"
-          value={bust}
-          onChange={(e) => setBust(e.target.value)}
-        />
-        {bustError && <p className="error">{bustError}</p>}
+    <div className="field">
+      <label htmlFor={id}>{label} (in)</label>
+      <input
+        id={id}
+        type="number"
+        min={min}
+        max={max}
+        step="0.25"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      {error && <p className="error">{error}</p>}
+    </div>
+  );
+}
 
-        <button type="submit">Draft my bodice</button>
-      </form>
+function MeasurementForm({
+  bust, setBust,
+  waist, setWaist,
+  napeToWaist, setNapeToWaist,
+  shoulder, setShoulder,
+  neck, setNeck,
+}) {
+  return (
+    <form onSubmit={(e) => e.preventDefault()}>
+      <h2>Client measurements</h2>
 
-      {!bustError && <p>Quarter bust + ease: {quarterBust} cm</p>}
-    </>
+      <MeasurementField id="bust" label="Bust"
+        value={bust} setValue={setBust} range={RANGES.bust} />
+
+      <MeasurementField id="waist" label="Waist"
+        value={waist} setValue={setWaist} range={RANGES.waist} />
+
+      <MeasurementField id="napeToWaist" label="Nape to waist"
+        value={napeToWaist} setValue={setNapeToWaist} range={RANGES.napeToWaist} />
+
+      <MeasurementField id="shoulder" label="Shoulder length"
+        value={shoulder} setValue={setShoulder} range={RANGES.shoulder} />
+
+      <MeasurementField id="neck" label="Neck"
+        value={neck} setValue={setNeck} range={RANGES.neck} />
+    </form>
   );
 }
 
