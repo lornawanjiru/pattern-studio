@@ -182,3 +182,17 @@
     border-right-color: var(--border);
   }
 }
+
+/* Pattern paper: white sheet, black pencil lines, normal text spacing */
+.pattern-canvas {
+  display: block;
+  margin: 24px auto;
+  letter-spacing: 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+.pattern-canvas text {
+  fill: black;
+  letter-spacing: 0;
+}

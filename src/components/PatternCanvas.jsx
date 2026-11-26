@@ -20,7 +20,10 @@ function PatternCanvas({ bust, napeToWaist, shoulderToBust, ease = 1, margin = 2
   const waistY = margin + frameHeight;
 
   return (
-    <svg width="350" viewBox={`0 0 ${paperWidth} ${paperHeight}`}>
+    <svg className="pattern-canvas" width="350" viewBox={`0 0 ${paperWidth} ${paperHeight}`}>
+      {/* The paper */}
+      <rect x="0" y="0" width={paperWidth} height={paperHeight} fill="white" />
+
       {/* The frame */}
       <rect
         x={left}
