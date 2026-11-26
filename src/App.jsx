@@ -10,15 +10,17 @@ function App() {
   const [bust, setBust] = useState('');
   const [waist, setWaist] = useState('');
   const [napeToWaist, setNapeToWaist] = useState('');
-  const [shoulder, setShoulder] = useState('');
+  const [acrossShoulders, setAcrossShoulders] = useState('');
   const [neck, setNeck] = useState('');
+  const [shoulderToBust, setShoulderToBust] = useState('');
 
   const isValid =
     checkMeasurement(bust, ...RANGES.bust) === '' &&
     checkMeasurement(waist, ...RANGES.waist) === '' &&
     checkMeasurement(napeToWaist, ...RANGES.napeToWaist) === '' &&
-    checkMeasurement(shoulder, ...RANGES.shoulder) === '' &&
-    checkMeasurement(neck, ...RANGES.neck) === '';
+    checkMeasurement(acrossShoulders, ...RANGES.acrossShoulders) === '' &&
+    checkMeasurement(neck, ...RANGES.neck) === '' &&
+    checkMeasurement(shoulderToBust, ...RANGES.shoulderToBust) === '';
 
   return (
     <>
@@ -28,8 +30,9 @@ function App() {
         bust={bust} setBust={setBust}
         waist={waist} setWaist={setWaist}
         napeToWaist={napeToWaist} setNapeToWaist={setNapeToWaist}
-        shoulder={shoulder} setShoulder={setShoulder}
+        acrossShoulders={acrossShoulders} setAcrossShoulders={setAcrossShoulders}
         neck={neck} setNeck={setNeck}
+        shoulderToBust={shoulderToBust} setShoulderToBust={setShoulderToBust}
       />
 
       {isValid && (
@@ -37,13 +40,15 @@ function App() {
           <PatternCanvas
             bust={Number(bust)}
             napeToWaist={Number(napeToWaist)}
+            shoulderToBust={Number(shoulderToBust)}
           />
           <PatternInfo
             bust={Number(bust)}
             waist={Number(waist)}
             napeToWaist={Number(napeToWaist)}
-            shoulder={Number(shoulder)}
+            acrossShoulders={Number(acrossShoulders)}
             neck={Number(neck)}
+            shoulderToBust={Number(shoulderToBust)}
           />
         </>
       )}

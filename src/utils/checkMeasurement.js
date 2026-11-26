@@ -4,8 +4,9 @@ export const RANGES = {
   bust: [20, 80],
   waist: [16, 80],
   napeToWaist: [12, 22],
-  shoulder: [15, 20],
+  acrossShoulders: [15, 20],
   neck: [10, 24],
+  shoulderToBust: [7, 14],
 };
 
 export function checkMeasurement(text, min, max) {

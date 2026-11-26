@@ -1,23 +1,23 @@
-function PatternCanvas() {
-  // Sample measurements (inches). Section 3 will bring these in from the form.
-  const bust = 36;
-  const napeToWaist = 16;
-  const ease = 1;           // per quarter, use your class's value
-  const bustLineDepth = 8.5; // placeholder, use your drafting method
-  const margin = 2;
+import Label from './Label';
 
+const ARMHOLE_ADJUST = 2; // inches: armhole depth = bust / 4 - 2
+
+function PatternCanvas({ bust, napeToWaist, shoulderToBust, ease = 1, margin = 2 }) {
   // Calculations (not state!)
-  const frameWidth = bust / 4 + ease;      // 10
-  const frameHeight = napeToWaist;         // 16
-  const paperWidth = frameWidth + margin * 2;   // 14
-  const paperHeight = frameHeight + margin * 2; // 20
+  const frameWidth = bust / 4 + ease;
+  const frameHeight = napeToWaist;
+  const armholeDepth = bust / 4 - ARMHOLE_ADJUST;
+
+  const paperWidth = frameWidth + margin * 2;
+  const paperHeight = frameHeight + margin * 2;
 
   // Key points
-  const left = margin;                 // 2
-  const right = margin + frameWidth;   // 12
-  const top = margin;                  // 2
-  const bustY = margin + bustLineDepth;   // 10.5
-  const waistY = margin + frameHeight;    // 18
+  const left = margin;
+  const right = margin + frameWidth;
+  const top = margin;
+  const armholeY = margin + armholeDepth;
+  const bustY = margin + shoulderToBust; // TODO: confirm where shoulder to bust is measured from
+  const waistY = margin + frameHeight;
 
   return (
     <svg width="350" viewBox={`0 0 ${paperWidth} ${paperHeight}`}>
@@ -32,12 +32,19 @@ function PatternCanvas() {
         fill="none"
       />
 
+      {/* Armhole line */}
+      <line x1={left} y1={armholeY} x2={right} y2={armholeY} stroke="black" strokeWidth="0.05" />
+      <Label text="Armhole line" x={left + 0.2} y={armholeY - 0.2} />
+
       {/* Bust line */}
       <line x1={left} y1={bustY} x2={right} y2={bustY} stroke="black" strokeWidth="0.05" />
-      <text x={left + 0.2} y={bustY - 0.2} fontSize="0.4">Bust line</text>
+      <Label text="Bust line" x={left + 0.2} y={bustY - 0.2} />
 
-      {/* Waist line label (the bottom edge of the frame) */}
-      <text x={left + 0.2} y={waistY - 0.2} fontSize="0.4">Waist line</text>
+      {/* Waist line (the bottom edge of the frame) */}
+      <Label text="Waist line" x={left + 0.2} y={waistY - 0.2} />
+
+      {/* Centre back (the left edge of the frame) */}
+      <Label text="Centre back" x={left + 0.2} y={top + 1} />
     </svg>
   );
 }

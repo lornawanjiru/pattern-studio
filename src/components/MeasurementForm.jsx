@@ -26,8 +26,9 @@ function MeasurementForm({
   bust, setBust,
   waist, setWaist,
   napeToWaist, setNapeToWaist,
-  shoulder, setShoulder,
+  acrossShoulders, setAcrossShoulders,
   neck, setNeck,
+  shoulderToBust, setShoulderToBust,
 }) {
   return (
     <form onSubmit={(e) => e.preventDefault()}>
@@ -42,11 +43,14 @@ function MeasurementForm({
       <MeasurementField id="napeToWaist" label="Nape to waist"
         value={napeToWaist} setValue={setNapeToWaist} range={RANGES.napeToWaist} />
 
-      <MeasurementField id="shoulder" label="Shoulder length"
-        value={shoulder} setValue={setShoulder} range={RANGES.shoulder} />
+      <MeasurementField id="acrossShoulders" label="Across shoulders"
+        value={acrossShoulders} setValue={setAcrossShoulders} range={RANGES.acrossShoulders} />
 
       <MeasurementField id="neck" label="Neck"
         value={neck} setValue={setNeck} range={RANGES.neck} />
+
+      <MeasurementField id="shoulderToBust" label="Shoulder to bust"
+        value={shoulderToBust} setValue={setShoulderToBust} range={RANGES.shoulderToBust} />
     </form>
   );
 }
